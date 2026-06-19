@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Ulang Tahun, Sayang 🕯️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Background ambience -->
+<div class="bg-glow"></div>
+<div class="petals-field" id="petalsField" aria-hidden="true"></div>
+
+<!-- ================= SCENE 0 — SAMPUL ================= -->
+<section class="scene scene-cover" id="scene-cover" data-scene="0">
+  <div class="cover-frame">
+    <p class="eyebrow">sebuah kado kecil, untukmu</p>
+    <h1 class="cover-title">Selamat Ulang Tahun,<br><span class="name-placeholder" id="partnerName" contenteditable="true" spellcheck="false">Dias Windri Azzahra</span></h1>
+    <p class="cover-sub">Ada sesuatu yang ingin aku tunjukkan malam ini.<br>Pelan-pelan saja, ikuti aku.</p>
+    <button class="btn-primary" id="btnStart">
+      <span>Buka Ucapannya</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <!-- <p class="hint-edit">*klik nama di atas untuk mengganti dengan nama dia</p> -->
+  </div>
+</section>
+
+<!-- ================= SCENE 1 — LILIN ================= -->
+<section class="scene scene-candle" id="scene-candle" data-scene="1">
+  <div class="scene-inner">
+    <p class="eyebrow">langkah satu</p>
+    <h2 class="scene-title">Tiup lilinnya, buat permintaan</h2>
+    <p class="scene-desc" id="candleDesc">Tahan tombol di bawah lilin (atau tiup lewat mikrofon) sampai apinya padam.</p>
+
+    <div class="cake-wrap">
+      <svg class="cake" viewBox="0 0 220 240" width="220" height="240" aria-hidden="true">
+        <!-- plate -->
+        <ellipse cx="110" cy="225" rx="95" ry="10" fill="#3a2348" opacity="0.5"/>
+        <!-- cake layers -->
+        <rect x="35" y="150" width="150" height="55" rx="10" fill="#f4a8c0"/>
+        <rect x="35" y="150" width="150" height="14" rx="7" fill="#fff0f5"/>
+        <rect x="50" y="105" width="120" height="50" rx="10" fill="#e07ba0"/>
+        <rect x="50" y="105" width="120" height="13" rx="6" fill="#fbd2e2"/>
+        <rect x="68" y="65" width="84" height="45" rx="9" fill="#c95686"/>
+        <rect x="68" y="65" width="84" height="12" rx="6" fill="#f2a3c1"/>
+        <!-- drips -->
+        <path d="M50 105 q5 12 0 18 q-5 6 0 14" stroke="#fff0f5" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.8"/>
+        <path d="M170 105 q-5 12 0 18 q5 6 0 14" stroke="#fff0f5" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.8"/>
+        <path d="M110 65 q4 10 0 16" stroke="#fbd2e2" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>
+        <!-- sprinkles -->
+        <circle cx="75" cy="170" r="3" fill="#ffd9a0"/>
+        <circle cx="145" cy="180" r="3" fill="#fff8f0"/>
+        <circle cx="100" cy="190" r="3" fill="#ffd9a0"/>
+        <circle cx="65" cy="125" r="2.5" fill="#fff8f0"/>
+        <circle cx="150" cy="130" r="2.5" fill="#ffd9a0"/>
+      </svg>
+
+      <!-- candle sits on top, separate so flame can animate independently -->
+      <div class="candle-holder" id="candleHolder">
+        <div class="candle-stick"></div>
+        <div class="flame-wrap" id="flameWrap">
+          <div class="flame-glow"></div>
+          <div class="flame"></div>
+        </div>
+        <div class="smoke" id="smoke" hidden>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-blow" id="btnBlow">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v6m0 0c2 0 3.5 1.5 3.5 3.5S14 15 12 15s-3.5-1.5-3.5-3.5S10 8 12 8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21c0-2 1-3 3-3s2 2 4 2 2-2 4-2 3 1 3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span id="btnBlowLabel">Tahan untuk Meniup</span>
+    </button>
+    <p class="mic-status" id="micStatus"></p>
+
+    <button class="btn-ghost scene-next" id="next-candle" disabled>Lanjut →</button>
+  </div>
+</section>
+
+<!-- ================= SCENE 2 — KADO ================= -->
+<section class="scene scene-gift" id="scene-gift" data-scene="2">
+  <div class="scene-inner">
+    <p class="eyebrow">langkah dua</p>
+    <h2 class="scene-title">Buka kado dariku</h2>
+    <p class="scene-desc">Pilih satu pita untuk dibuka. Setiap kotak menyimpan hal yang berbeda.</p>
+
+    <div class="gifts-row" id="giftsRow">
+      <button class="gift-box" data-gift="1" aria-label="Buka kado pertama">
+        <svg viewBox="0 0 120 120" width="100%" height="100%">
+          <rect x="14" y="48" width="92" height="58" rx="6" fill="#a8567d"/>
+          <rect x="14" y="48" width="92" height="14" fill="#8c3f66"/>
+          <rect x="50" y="20" width="20" height="86" fill="#ffd9a0"/>
+          <rect x="14" y="48" width="92" height="20" fill="#ffd9a0" opacity="0"/>
+          <path class="ribbon-top" d="M60 22 C40 8, 22 18, 38 32 C48 38, 56 30, 60 22 Z" fill="#ffd9a0"/>
+          <path class="ribbon-top" d="M60 22 C80 8, 98 18, 82 32 C72 38, 64 30, 60 22 Z" fill="#ffd9a0"/>
+        </svg>
+        <span class="gift-label">Kado 1</span>
+      </button>
+
+      <button class="gift-box" data-gift="2" aria-label="Buka kado kedua">
+        <svg viewBox="0 0 120 120" width="100%" height="100%">
+          <rect x="14" y="48" width="92" height="58" rx="6" fill="#c95686"/>
+          <rect x="14" y="48" width="92" height="14" fill="#a8456c"/>
+          <rect x="50" y="20" width="20" height="86" fill="#fff8f0"/>
+          <path class="ribbon-top" d="M60 22 C40 8, 22 18, 38 32 C48 38, 56 30, 60 22 Z" fill="#fff8f0"/>
+          <path class="ribbon-top" d="M60 22 C80 8, 98 18, 82 32 C72 38, 64 30, 60 22 Z" fill="#fff8f0"/>
+        </svg>
+        <span class="gift-label">Kado 2</span>
+      </button>
+
+      <button class="gift-box" data-gift="3" aria-label="Buka kado ketiga">
+        <svg viewBox="0 0 120 120" width="100%" height="100%">
+          <rect x="14" y="48" width="92" height="58" rx="6" fill="#e07ba0"/>
+          <rect x="14" y="48" width="92" height="14" fill="#c95f87"/>
+          <rect x="50" y="20" width="20" height="86" fill="#ffd9a0"/>
+          <path class="ribbon-top" d="M60 22 C40 8, 22 18, 38 32 C48 38, 56 30, 60 22 Z" fill="#ffd9a0"/>
+          <path class="ribbon-top" d="M60 22 C80 8, 98 18, 82 32 C72 38, 64 30, 60 22 Z" fill="#ffd9a0"/>
+        </svg>
+        <span class="gift-label">Kado 3</span>
+      </button>
+    </div>
+
+    <div class="gift-reveal" id="giftReveal" hidden>
+      <p class="gift-reveal-text" id="giftRevealText"></p>
+    </div>
+
+    <button class="btn-ghost scene-next" id="next-gift" disabled>Lanjut →</button>
+  </div>
+</section>
+
+<!-- ================= SCENE 3 — GALERI ================= -->
+<section class="scene scene-gallery" id="scene-gallery" data-scene="3">
+  <div class="scene-inner">
+    <p class="eyebrow">langkah tiga</p>
+    <h2 class="scene-title">Beberapa momen kita</h2>
+    <!-- <p class="scene-desc">Ganti foto placeholder ini dengan foto kalian — klik tiap kartu untuk lihat catatannya.</p> -->
+
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- filled by JS -->
+    </div>
+
+    <button class="btn-ghost scene-next" id="next-gallery">Lanjut →</button>
+  </div>
+</section>
+
+<!-- ================= SCENE 4 — PESAN PENUTUP ================= -->
+<section class="scene scene-letter" id="scene-letter" data-scene="4">
+  <div class="scene-inner letter-inner">
+    <p class="eyebrow">langkah empat, yang terakhir</p>
+    <h2 class="scene-title">Untukmu, dengan sepenuh hati</h2>
+
+    <div class="letter-card" id="letterCard">
+      <p class="letter-text" id="letterText">Selamat ulang tahun. Di antara semua hal baik yang terjadi padaku tahun ini, kamu tetap yang paling aku syukuri. Terima kasih untuk setiap tawa, setiap pelukan, dan setiap hari biasa yang kamu bikin terasa istimewa. Semoga tahun ini membawa semua hal yang kamu doakan diam-diam, dan aku berharap bisa terus ada di sampingmu untuk menyaksikannya.
+
+Aku sayang kamu, hari ini dan seterusnya.</p>
+      <p class="letter-sign">— dariku, untukmu 🤍</p>
+    </div>
+
+    <div class="final-actions">
+      <button class="btn-primary" id="btnCelebrate">
+        <span>Rayakan! 🎉</span>
+      </button>
+      <button class="btn-ghost" id="btnReplay">Putar ulang dari awal</button>
+    </div>
+  </div>
+</section>
+
+<!-- progress dots -->
+<nav class="progress-dots" id="progressDots" aria-label="Navigasi adegan">
+  <button class="dot" data-go="0" aria-label="Sampul"></button>
+  <button class="dot" data-go="1" aria-label="Lilin"></button>
+  <button class="dot" data-go="2" aria-label="Kado"></button>
+  <button class="dot" data-go="3" aria-label="Galeri"></button>
+  <button class="dot" data-go="4" aria-label="Pesan"></button>
+</nav>
+
+<canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+<script src="script.js"></script>
+</body>
+</html>
